@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=, initial-scale=1.0">
+    <link rel="stylesheet" href="signup stle.css">
+    <title>sign up</title>
+</head>
+<body>
+    <section>
+<div class="logo">
+    <img src="download.png" alt="">
+    <span>.Pk</span>
+</div>
+<div class="card">
+    <h1>Sign up</h1>
+    <div class="form">
+        <form action="signup.php">
+        <label for="">Name</label>
+        <input type="text" name="name">
+        <label for="">Email</label>
+        <input type="email" required name="password" >
+        <label for="">Password</label>
+        <input type="password"id="pass" minlength="8">
+        <label for="">re-enter Password</label>
+        <input type="password"id="retyp" name="repassword" >
+
+        <button type="submit" id="submi">Continue</a></button>
+    </form>
+    </div>
+    <p>By continuing, you agree to Amazon's <a href="#">Conditions of Use</a> and <a href="#">Privacy Notice.</a></p>
+    <a href="#" class="icon">Need Help?</a>
+</div>
+
+
+<footer>
+    <div class="links">
+        <a href="#"> Condition of use</a>
+        <a href="#"> Privacy notice</a>
+        <a href="#"> Help</a> 
+    </div>
+<p>© 1996-2025, Amazon.com, Inc. or its affiliates</p>
+</footer>
+
+    </section>
+    <script>
+      function signup() {
+    window.location.href = "index.html";
+}
+
+document.getElementById("submit").addEventListener('click', function() {
+    signup(); // Add parentheses to call the function
+});
+function validatePassword() {
+    var password = document.getElementById("pass").value;
+    var retypePassword = document.getElementById("retyp").value;
+    var message = document.getElementById("message");
+    
+    if (password === retypePassword) {
+        message.style.color = "green";
+        message.innerHTML = "Passwords match!";
+    } else {
+        message.style.color = "red";
+        message.innerHTML = "Passwords do not match!";
+    }
+}
+
+    </script>
+
+</body>
+</html>

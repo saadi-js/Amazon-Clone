@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=, initial-scale=1.0">
+    <link rel="stylesheet" href="loginstyle.css">
+    <title>sign up</title>
+</head>
+<body>
+    <section>
+<div class="logo">
+    <img src="download.png" alt="">
+    <span>.Pk</span>
+</div>
+<div class="card">
+    <h1>Sign In</h1>
+    <form action="login.php">
+    <div class="form">
+       
+        <label for="">Email</label>
+        <input type="email" required title="Please Enter The Correct Email">
+        <button type="submit" id="sub">Continue</button>
+    
+    </div>
+</form>
+    <p>By continuing, you agree to Amazon's <a href="#">Conditions of Use</a> and <a href="#">Privacy Notice.</a></p>
+    <a href="#" class="icon">Need Help?</a>
+</div>
+<div class="break">
+    <p>New to Amazon?</p>
+</div>
+<div class="btn">
+    <button><a href="signup.html" self>Creat your Amazon Account</a></button>
+</div>
+<footer>
+    <div class="links">
+        <a href="#"> Condition of use</a>
+        <a href="#"> Privacy notice</a>
+        <a href="#"> Help</a> 
+    </div>
+<p>© 1996-2025, Amazon.com, Inc. or its affiliates</p>
+</footer>
+
+    </section>
+    <script>
+            function signin() {
+    window.location.href = "index.html";
+}
+
+document.getElementById("sub").addEventListener('click', function() {
+    signin(); // Add parentheses to call the function
+});
+    </script>
+
+</body>
+</html>

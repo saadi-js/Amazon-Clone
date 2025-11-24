@@ -1,0 +1,496 @@
+<products>
+
+    <!-- Furniture Category -->
+    <product>
+        <id>1</id>
+        <name>Wooden Table</name>
+        <price>15000</price>
+        <image>f1.jpeg</image>
+        <category>furniture</category>
+    </product>
+    <product>
+        <id>1</id>
+        <name>side Table</name>
+        <price>12000</price>
+        <image>f2.jpeg</image>
+        <category>furniture</category>
+    </product>
+    <product>
+        <id>1</id>
+        <name> dressing Table</name>
+        <price>35000</price>
+        <image>f3.jpeg</image>
+        <category>furniture</category>
+    </product>
+     <product>
+        <id>1</id>
+        <name>2 seat sofa</name>
+        <price>50000</price>
+        <image>f4.jpeg</image>
+        <category>furniture</category>
+    </product>
+    <product>
+        <id>1</id>
+        <name>wooden chair</name>
+        <price>15000</price>
+        <image>f5.jpeg</image>
+        <category>furniture</category>
+    </product>
+    <product>
+        <id>1</id>
+        <name>kids bed</name>
+        <price>100000</price>
+        <image>f6.jpeg</image>
+        <category>furniture</category>
+    </product>
+     <product>
+        <id>1</id>
+        <name>king size bed</name>
+        <price>250000</price>
+        <image>f7.jpeg</image>
+        <category>furniture</category>
+    </product>
+    <product>
+        <id>1</id>
+        <name>square table</name>
+        <price>35000</price>
+        <image>f8.jpeg</image>
+        <category>furniture</category>
+    </product>
+    <!-- Clothing Category -->
+    <product>
+        <id>2</id>
+        <name>knitted blazer</name>
+        <price>5000</price>
+        <image>cloth1.jpeg</image>
+        <category>clothing</category>
+    </product>
+    <product>
+        <id>2</id>
+        <name>Jeans</name>
+        <price>2000</price>
+        <image>cloth11.jpg</image>
+        <category>clothing</category>
+    </product>
+    <product>
+        <id>2</id>
+        <name>Double breasted blazer</name>
+        <price>9000</price>
+        <image>cloth9.jpg</image>
+        <category>clothing</category>
+    </product>
+     <product>
+        <id>2</id>
+        <name>cotton Jeans</name>
+        <price>2500</price>
+        <image>cloth12.jpg</image>
+        <category>clothing</category>
+    </product>
+    <product>
+        <id>2</id>
+        <name>polo</name>
+        <price>2000</price>
+        <image>cloth13.jpg</image>
+        <category>clothing</category>
+    </product>
+    <product>
+        <id>2</id>
+        <name>Wool jacket</name>
+        <price>5000</price>
+        <image>cloth5.jpg</image>
+        <category>clothing</category>
+    </product>
+     <product>
+        <id>2</id>
+        <name>overcoat</name>
+        <price>8000</price>
+        <image>cloth4.jpeg</image>
+        <category>clothing</category>
+    </product>
+    <product>
+        <id>2</id>
+        <name>Suits</name>
+        <price>15000</price>
+        <image>cloth10.jpg</image>
+        <category>clothing</category>
+    </product>
+   
+    <!-- Kids Category -->
+    <product>
+        <id>3</id>
+        <name>Kids T-shirt</name>
+        <price>1200</price>
+        <image>k1.jpeg</image>
+        <category>kids</category>
+    </product>
+    <product>
+        <id>3</id>
+        <name>kids shoes</name>
+        <price>2000</price>
+        <image>k2.jpeg</image>
+        <category>kids</category>
+    </product>
+    <product>
+        <id>3</id>
+        <name>Kids Sandals</name>
+        <price>2000</price>
+        <image>k3.jpeg</image>
+        <category>kids</category>
+    </product>
+    <product>
+        <id>3</id>
+        <name>Pediasure</name>
+        <price>3500</price>
+        <image>k4.png</image>
+        <category>kids</category>
+    </product>
+    <product>
+        <id>3</id>
+        <name>Kids Supplements</name>
+        <price>1200</price>
+        <image>k5.jpeg</image>
+        <category>kids</category>
+    </product>
+    <product>
+        <id>3</id>
+        <name>Kids Shorts</name>
+        <price>1200</price>
+        <image>k6.jpeg</image>
+        <category>kids</category>
+    </product>
+    <product>
+        <id>3</id>
+        <name>Kids toys</name>
+        <price>2000</price>
+        <image>k7.jpeg</image>
+        <category>kids</category>
+    </product>
+    <product>
+        <id>3</id>
+        <name>Kids blanket</name>
+        <price>2000</price>
+        <image>k8.jpeg</image>
+        <category>kids</category>
+    </product>
+   
+    <!-- Makeup Category -->
+    <product>
+        <id>4</id>
+        <name>Foundation</name>
+        <price>3000</price>
+        <image>m1.jpeg</image>
+        <category>makeup</category>
+    </product>
+    <product>
+        <id>4</id>
+        <name>Lipsticks</name>
+        <price>800</price>
+        <image>m2.jpeg</image>
+        <category>makeup</category>
+    </product>
+    <product>
+        <id>4</id>
+        <name>Face powder</name>
+        <price>1000</price>
+        <image>m3.jpeg</image>
+        <category>makeup</category>
+    </product>
+    <product>
+        <id>4</id>
+        <name>Concealer</name>
+        <price>3000</price>
+        <image>m4.jpeg</image>
+        <category>makeup</category>
+    </product>
+    <product>
+        <id>4</id>
+        <name>Blush On</name>
+        <price>31500</price>
+        <image>m5.jpeg</image>
+        <category>makeup</category>
+    </product>
+    <product>
+        <id>4</id>
+        <name>Liner</name>
+        <price>2000</price>
+        <image>m6.jpeg</image>
+        <category>makeup</category>
+    </product>
+    <product>
+        <id>4</id>
+        <name>Mascara</name>
+        <price>1000</price>
+        <image>m7.jpeg</image>
+        <category>makeup</category>
+    </product>
+    <product>
+        <id>4</id>
+        <name>Eye Pencil</name>
+        <price>1000</price>
+        <image>m8.jpeg</image>
+        <category>makeup</category>
+    </product>
+    
+
+    <!-- Accessories Category -->
+    <product>
+        <id>5</id>
+        <name>Wrist Watch</name>
+        <price>5000</price>
+        <image>a1.jpeg</image>
+        <category>accessories</category>
+    </product>
+    <product>
+        <id>5</id>
+        <name>Sun glasses</name>
+        <price>2000</price>
+        <image>a2.jpeg</image>
+        <category>accessories</category>
+    </product>
+    <product>
+        <id>5</id>
+        <name>Braclete</name>
+        <price>1000</price>
+        <image>a3.jpeg</image>
+        <category>accessories</category>
+    </product>
+     <product>
+        <id>5</id>
+        <name>Cap</name>
+        <price>1000</price>
+        <image>a4.jpeg</image>
+        <category>accessories</category>
+    </product>
+    <product>
+        <id>5</id>
+        <name>Crossbody Bag</name>
+        <price>5000</price>
+        <image>a5.jpeg</image>
+        <category>accessories</category>
+    </product>
+    <product>
+        <id>5</id>
+        <name>Leather Belt</name>
+        <price>5000</price>
+        <image>a6.jpeg</image>
+        <category>accessories</category>
+    </product>
+     <product>
+        <id>5</id>
+        <name>Shirt tucker</name>
+        <price>1000</price>
+        <image>a7.jpeg</image>
+        <category>accessories</category>
+    </product>
+    <product>
+        <id>5</id>
+        <name>Air Buds</name>
+        <price>5000</price>
+        <image>a8.jpeg</image>
+        <category>accessories</category>
+    </product>
+   
+    <!-- Smartphone Category -->
+    <product>
+        <id>6</id>
+        <name>iPhone 14</name>
+        <price>150000</price>
+        <image>iphone.jpeg</image>
+        <category>smartphone</category>
+    </product>
+    <product>
+        <id>6</id>
+        <name>iPhone 16 </name>
+        <price>300000</price>
+        <image>iphone16.jpeg</image>
+        <category>smartphone</category>
+    </product>
+    <product>
+        <id>6</id>
+        <name>iPhone 15</name>
+        <price>200000</price>
+        <image>iphone15.jpeg</image>
+        <category>smartphone</category>
+    </product>
+    <product>
+        <id>6</id>
+        <name>iPhone 11 pro max</name>
+        <price>150000</price>
+        <image>iphone11.jpeg</image>
+        <category>smartphone</category>
+    </product>
+        <product>
+        <id>6</id>
+        <name>samsung s24 ultra</name>
+        <price>350000</price>
+        <image>s24.jpeg</image>
+        <category>smartphone</category>
+    </product>
+    <product>
+        <id>6</id>
+        <name>samsung s25 ultra</name>
+        <price>450000</price>
+        <image>s25.jpeg</image>
+        <category>smartphone</category>
+    </product>
+    <product>
+        <id>6</id>
+        <name>samsung s23 ultra</name>
+        <price>250000</price>
+        <image>s23.jpeg</image>
+        <category>smartphone</category>
+    </product>
+    <product>
+        <id>6</id>
+        <name>samsung s21 ultra</name>
+        <price>150000</price>
+        <image>s21.jpeg</image>
+        <category>smartphone</category>
+    </product>
+        <product>
+        <id>6</id>
+        <name>pixel 9proxl</name>
+        <price>350000</price>
+        <image>9xl.jpeg</image>
+        <category>smartphone</category>
+    </product>
+    <product>
+        <id>6</id>
+        <name>pixel 8xl</name>
+        <price>250000</price>
+        <image>8xl.jpeg</image>
+        <category>smartphone</category>
+    </product>
+    <product>
+        <id>6</id>
+        <name>pixel 6xl</name>
+        <price>150000</price>
+        <image>7xl.jpeg</image>
+        <category>smartphone</category>
+    </product>
+    <product>
+        <id>6</id>
+        <name>pixel 4xl</name>
+        <price>50000</price>
+        <image>4xl.jpeg</image>
+        <category>smartphone</category>
+    </product>
+
+    <!-- Healthcare Category -->
+    <product>
+        <id>7</id>
+        <name>Vitamin Supplements</name>
+        <price>1000</price>
+        <image>h1.jpeg</image>
+        <category>healthcare</category>
+    </product>
+    <product>
+        <id>7</id>
+        <name>ponds facewash</name>
+        <price>500</price>
+        <image>h2.jpeg</image>
+        <category>healthcare</category>
+    </product>
+    <product>
+        <id>7</id>
+        <name>oralB toothbrush</name>
+        <price>1500</price>
+        <image>h3.jpeg</image>
+        <category>healthcare</category>
+    </product>
+     <product>
+        <id>7</id>
+        <name>trimmer</name>
+        <price>3500</price>
+        <image>h4.jpeg</image>
+        <category>healthcare</category>
+    </product>
+    <product>
+        <id>7</id>
+        <name>mositurizer</name>
+        <price>1500</price>
+        <image>h5.jpeg</image>
+        <category>healthcare</category>
+    </product>
+    <product>
+        <id>7</id>
+        <name>calcium supplements</name>
+        <price>1500</price>
+        <image>h6.jpeg</image>
+        <category>healthcare</category>
+    </product>
+     <product>
+        <id>7</id>
+        <name>Sunscreen</name>
+        <price>1500</price>
+        <image>h7.jpeg</image>
+        <category>healthcare</category>
+    </product>
+    <product>
+        <id>7</id>
+        <name>Alovera gel</name>
+        <price>500</price>
+        <image>h8.jpeg</image>
+        <category>healthcare</category>
+    </product>
+
+    <!-- Pet Care Category -->
+    <product>
+        <id>8</id>
+        <name>Dog Food</name>
+        <price>2000</price>
+        <image>p1.jpeg</image>
+        <category>petcare</category>
+    </product>
+    <product>
+        <id>8</id>
+        <name>Cat Food</name>
+        <price>1500</price>
+        <image>p2.jpeg</image>
+        <category>petcare</category>
+    </product>
+    <product>
+        <id>8</id>
+        <name>Cat litter</name>
+        <price>1500</price>
+        <image>p3.jpeg</image>
+        <category>petcare</category>
+    </product>
+      <product>
+        <id>8</id>
+        <name>Dog Collar</name>
+        <price>1000</price>
+        <image>p4.jpeg</image>
+        <category>petcare</category>
+    </product>
+    <product>
+        <id>8</id>
+        <name>Shampoo</name>
+        <price>1500</price>
+        <image>p5.jpeg</image>
+        <category>petcare</category>
+    </product>
+    <product>
+        <id>8</id>
+        <name>Supplements</name>
+        <price>1500</price>
+        <image>p6.jpeg</image>
+        <category>petcare</category>
+    </product>
+      <product>
+        <id>8</id>
+        <name>Pet house</name>
+        <price>15000</price>
+        <image>p7.jpeg</image>
+        <category>petcare</category>
+    </product>
+    <product>
+        <id>8</id>
+        <name>Treats</name>
+        <price>500</price>
+        <image>p8.jpeg</image>
+        <category>petcare</category>
+    </product>
+   
+
+</products>
