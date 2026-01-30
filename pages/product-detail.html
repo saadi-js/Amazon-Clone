@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Details - Amazon</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/toast.css">
+    <link rel="stylesheet" href="../assets/css/product-detail.css">
+</head>
+<body>
+    <div id="header-container"></div>
+    
+    <div class="product-detail-container">
+        <div class="product-breadcrumb">
+            <a href="../index.html">Home</a>
+            <i class="fas fa-chevron-right"></i>
+            <span id="breadcrumb-category">Category</span>
+            <i class="fas fa-chevron-right"></i>
+            <span id="breadcrumb-product">Product</span>
+        </div>
+
+        <div class="product-main">
+            <div class="product-images">
+                <div class="product-image-main" id="main-image"></div>
+            </div>
+
+            <div class="product-info">
+                <h1 id="product-title">Product Title</h1>
+                <div class="product-rating">
+                    <div class="stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                    </div>
+                    <span class="rating-count">4.5 out of 5</span>
+                    <span class="review-count">1,234 ratings</span>
+                </div>
+                
+                <hr class="divider">
+                
+                <div class="product-pricing">
+                    <span class="price-label">Price:</span>
+                    <span class="price-main" id="product-price">Rs 0</span>
+                </div>
+
+                <div class="product-availability">
+                    <i class="fas fa-check-circle"></i>
+                    <span>In Stock</span>
+                </div>
+
+                <div class="product-description">
+                    <h3>About this item</h3>
+                    <ul id="product-features">
+                        <li>High-quality product with premium materials</li>
+                        <li>Durable and long-lasting construction</li>
+                        <li>Perfect for everyday use</li>
+                        <li>Available in multiple variants</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="product-buy-box">
+                <div class="buy-box-inner">
+                    <div class="buy-price" id="buy-price">Rs 0</div>
+                    <div class="buy-delivery">
+                        <i class="fas fa-truck"></i>
+                        <span>FREE Delivery on orders over Rs 2000</span>
+                    </div>
+                    <div class="buy-stock">
+                        <i class="fas fa-check"></i>
+                        <span>In Stock</span>
+                    </div>
+                    
+                    <div class="quantity-selector">
+                        <label for="quantity">Quantity:</label>
+                        <select id="quantity">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8">8</option>
+                            <option value="9">9</option>
+                            <option value="10">10</option>
+                        </select>
+                    </div>
+
+                    <button class="add-to-cart-btn" id="add-to-cart-detail">
+                        <i class="fas fa-shopping-cart"></i> Add to Cart
+                    </button>
+                    
+                    <button class="buy-now-btn">
+                        Buy Now
+                    </button>
+
+                    <div class="secure-transaction">
+                        <i class="fas fa-lock"></i>
+                        <span>Secure transaction</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="product-details-section">
+            <h2>Product Details</h2>
+            <table class="details-table">
+                <tr>
+                    <td class="detail-label">Product ID</td>
+                    <td class="detail-value" id="detail-id">-</td>
+                </tr>
+                <tr>
+                    <td class="detail-label">Category</td>
+                    <td class="detail-value" id="detail-category">-</td>
+                </tr>
+                <tr>
+                    <td class="detail-label">Brand</td>
+                    <td class="detail-value">Amazon Basics</td>
+                </tr>
+                <tr>
+                    <td class="detail-label">Availability</td>
+                    <td class="detail-value">In Stock</td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="recommended-section">
+            <h2>Recommended Products</h2>
+            <div class="recommended-products" id="recommended-products"></div>
+        </div>
+    </div>
+
+    <div id="footer-container"></div>
+    
+    <script src="../assets/js/toast.js"></script>
+    <script src="../assets/js/footer.js" defer></script>
+    <script src="../assets/js/header.js" defer></script>
+    <script src="../assets/js/addTocart.js"></script>
+    <script src="../assets/js/product-detail.js"></script>
+</body>
+</html>

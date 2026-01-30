@@ -1,0 +1,173 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amazon - Gift Cards</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <style>
+        .gc-container { max-width: 1200px; margin: 20px auto; padding: 20px; }
+        .gc-header { background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%); color: white; padding: 50px 20px; border-radius: 8px; text-align: center; margin-bottom: 30px; }
+        .gc-header h1 { font-size: 36px; margin-bottom: 10px; }
+        .gc-header p { font-size: 18px; opacity: 0.95; }
+        .gc-types { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; margin-bottom: 40px; }
+        .gc-card { background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.1); transition: all 0.3s; }
+        .gc-card:hover { transform: translateY(-8px); box-shadow: 0 8px 20px rgba(0,0,0,0.15); }
+        .gc-card-image { height: 200px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); display: flex; align-items: center; justify-content: center; font-size: 60px; color: white; }
+        .gc-card-content { padding: 25px; }
+        .gc-card-title { font-size: 20px; color: #111; margin-bottom: 10px; font-weight: 600; }
+        .gc-card-desc { font-size: 14px; color: #565959; margin-bottom: 20px; line-height: 1.6; }
+        .gc-amounts { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 20px; }
+        .amount-btn { padding: 12px; border: 2px solid #ddd; background: white; border-radius: 8px; cursor: pointer; font-weight: 600; transition: all 0.2s; }
+        .amount-btn:hover { border-color: #ff9900; background: #fff8f0; }
+        .amount-btn.selected { border-color: #ff9900; background: #ff9900; color: white; }
+        .custom-amount { width: 100%; padding: 12px; border: 2px solid #ddd; border-radius: 8px; font-size: 14px; margin-bottom: 15px; }
+        .buy-btn { width: 100%; padding: 14px; background: linear-gradient(to bottom, #f7dfa5, #f0c14b); border: 1px solid #a88734; border-radius: 8px; font-weight: 600; cursor: pointer; transition: all 0.2s; }
+        .buy-btn:hover { background: linear-gradient(to bottom, #f5d78e, #edb93c); }
+        .features { background: white; padding: 30px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+        .features h2 { font-size: 24px; color: #111; margin-bottom: 20px; }
+        .feature-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
+        .feature-item { display: flex; gap: 15px; align-items: start; }
+        .feature-item i { font-size: 28px; color: #ff9900; margin-top: 5px; }
+        .feature-item h3 { font-size: 16px; color: #111; margin-bottom: 5px; }
+        .feature-item p { font-size: 14px; color: #565959; line-height: 1.5; }
+        @media (max-width: 768px) {
+            .gc-types { grid-template-columns: 1fr; }
+            .gc-amounts { grid-template-columns: repeat(2, 1fr); }
+        }
+    </style>
+</head>
+<body>
+    <div id="header-container"></div>
+    <div class="gc-container">
+        <div class="gc-header">
+            <h1><i class="fa-solid fa-gift"></i> Amazon Gift Cards</h1>
+            <p>The perfect gift for any occasion</p>
+        </div>
+
+        <div class="gc-types">
+            <div class="gc-card">
+                <div class="gc-card-image" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">
+                    <i class="fa-solid fa-envelope"></i>
+                </div>
+                <div class="gc-card-content">
+                    <div class="gc-card-title">Email Gift Card</div>
+                    <div class="gc-card-desc">Delivered instantly via email. Perfect for last-minute gifts!</div>
+                    <div class="gc-amounts">
+                        <button class="amount-btn" onclick="selectAmount(this, 1000)">Rs 1,000</button>
+                        <button class="amount-btn" onclick="selectAmount(this, 2500)">Rs 2,500</button>
+                        <button class="amount-btn" onclick="selectAmount(this, 5000)">Rs 5,000</button>
+                    </div>
+                    <input type="number" class="custom-amount" placeholder="Or enter custom amount" min="500">
+                    <button class="buy-btn" onclick="buyGiftCard('Email')">Buy Now</button>
+                </div>
+            </div>
+
+            <div class="gc-card">
+                <div class="gc-card-image" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">
+                    <i class="fa-solid fa-credit-card"></i>
+                </div>
+                <div class="gc-card-content">
+                    <div class="gc-card-title">Physical Gift Card</div>
+                    <div class="gc-card-desc">Delivered to your doorstep in a beautiful package.</div>
+                    <div class="gc-amounts">
+                        <button class="amount-btn" onclick="selectAmount(this, 1000)">Rs 1,000</button>
+                        <button class="amount-btn" onclick="selectAmount(this, 2500)">Rs 2,500</button>
+                        <button class="amount-btn" onclick="selectAmount(this, 5000)">Rs 5,000</button>
+                    </div>
+                    <input type="number" class="custom-amount" placeholder="Or enter custom amount" min="500">
+                    <button class="buy-btn" onclick="buyGiftCard('Physical')">Buy Now</button>
+                </div>
+            </div>
+
+            <div class="gc-card">
+                <div class="gc-card-image" style="background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);">
+                    <i class="fa-solid fa-mobile-screen"></i>
+                </div>
+                <div class="gc-card-content">
+                    <div class="gc-card-title">Mobile Gift Card</div>
+                    <div class="gc-card-desc">Send via SMS or WhatsApp. Quick and convenient!</div>
+                    <div class="gc-amounts">
+                        <button class="amount-btn" onclick="selectAmount(this, 1000)">Rs 1,000</button>
+                        <button class="amount-btn" onclick="selectAmount(this, 2500)">Rs 2,500</button>
+                        <button class="amount-btn" onclick="selectAmount(this, 5000)">Rs 5,000</button>
+                    </div>
+                    <input type="number" class="custom-amount" placeholder="Or enter custom amount" min="500">
+                    <button class="buy-btn" onclick="buyGiftCard('Mobile')">Buy Now</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="features">
+            <h2>Why Choose Amazon Gift Cards?</h2>
+            <div class="feature-list">
+                <div class="feature-item">
+                    <i class="fa-solid fa-infinity"></i>
+                    <div>
+                        <h3>Never Expires</h3>
+                        <p>Gift cards have no expiration date and can be used anytime</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <i class="fa-solid fa-boxes-stacked"></i>
+                    <div>
+                        <h3>Millions of Products</h3>
+                        <p>Use on millions of items across all categories</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <i class="fa-solid fa-shield-halved"></i>
+                    <div>
+                        <h3>100% Secure</h3>
+                        <p>Protected with industry-leading security measures</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <i class="fa-solid fa-bolt"></i>
+                    <div>
+                        <h3>Instant Delivery</h3>
+                        <p>Email gift cards delivered within minutes</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="footer-container"></div>
+    <script src="../assets/js/footer.js" defer></script>
+    <script src="../assets/js/header.js" defer></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            headerloader();
+            loadfooter();
+        });
+
+        function selectAmount(btn, amount) {
+            btn.parentElement.querySelectorAll('.amount-btn').forEach(b => b.classList.remove('selected'));
+            btn.classList.add('selected');
+            btn.closest('.gc-card-content').querySelector('.custom-amount').value = amount;
+        }
+
+        function buyGiftCard(type) {
+            const amount = event.target.closest('.gc-card-content').querySelector('.custom-amount').value;
+            if (!amount || amount < 500) {
+                if(typeof Toast !== 'undefined') {
+                    Toast.error('Please select or enter an amount (minimum Rs 500)', 'Invalid Amount');
+                } else {
+                    alert('Please select or enter an amount (minimum Rs 500)');
+                }
+                return;
+            }
+            if(typeof Toast !== 'undefined') {
+                Toast.success(`${type} Gift Card - Rs ${amount}\nRedirecting to checkout...`, 'Proceeding to Checkout', 2000);
+            } else {
+                alert(`Proceeding to checkout:\n${type} Gift Card - Rs ${amount}\n\nYou'll be redirected to the checkout page.`);
+            }
+            setTimeout(() => {
+                window.location.href = 'checkout.html';
+            }, 2000);
+        }
+    </script>
+</body>
+</html>
+

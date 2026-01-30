@@ -1,0 +1,38 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amazon</title>
+    <script src="assets/js/addTocart.js"></script>
+    <script src="assets/js/updatecartTable.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+    <!-- Dynamic Header Container -->
+    <div id="header-container"></div>
+    
+    <!-- Main Content -->
+    <div style="padding: 20px; margin-top: 20px;">
+        <h1 style="text-align: center; color: #232f3e; margin: 20px 0;">TODAY'S DEALS</h1>
+        <h1 style="text-align: center; color: #232f3e; margin: 20px 0;">CUSTOMER SERVICE</h1>
+        <h1 style="text-align: center; color: #232f3e; margin: 20px 0;">REGISTRY</h1>
+        <h1 style="text-align: center; color: #232f3e; margin: 20px 0;">GIFT CARDS</h1>
+        <h1 style="text-align: center; color: #232f3e; margin: 20px 0;">SELL</h1>
+    </div>
+
+    <!-- Dynamic Footer Container -->
+    <div id="footer-container"></div>
+
+    <!-- Include Header and Footer JavaScript -->
+    <script src="assets/js/header.js"></script>
+    <script src="assets/js/footer.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            headerloader();
+            loadfooter();
+        });
+    </script>
+</body>
+</html>

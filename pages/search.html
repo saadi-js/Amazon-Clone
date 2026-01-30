@@ -1,0 +1,354 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amazon - Search Results</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" 
+        integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" 
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/toast.css">
+    <style>
+        .search-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .search-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        .search-title {
+            font-size: 24px;
+            color: #111;
+        }
+        .result-count {
+            color: #565959;
+            font-size: 14px;
+        }
+        .search-controls {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .filter-group {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+        .filter-group label {
+            font-size: 14px;
+            color: #111;
+            font-weight: 600;
+        }
+        .filter-select, .sort-select {
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+            background: white;
+            cursor: pointer;
+        }
+        .filter-select:focus, .sort-select:focus {
+            outline: 2px solid #ff9900;
+            border-color: #ff9900;
+        }
+        .no-results {
+            text-align: center;
+            padding: 60px 20px;
+            background: white;
+            border-radius: 8px;
+            margin: 40px 0;
+        }
+        .no-results i {
+            font-size: 64px;
+            color: #ddd;
+            margin-bottom: 20px;
+        }
+        .no-results h2 {
+            font-size: 24px;
+            color: #111;
+            margin-bottom: 10px;
+        }
+        .no-results p {
+            color: #565959;
+            font-size: 16px;
+            line-height: 1.6;
+        }
+        .suggestions {
+            margin-top: 20px;
+        }
+        .suggestions h3 {
+            font-size: 18px;
+            color: #111;
+            margin-bottom: 10px;
+        }
+        .suggestions ul {
+            list-style: none;
+            padding: 0;
+        }
+        .suggestions li {
+            padding: 5px 0;
+        }
+        .suggestions a {
+            color: #007185;
+            text-decoration: none;
+        }
+        .suggestions a:hover {
+            color: #c45500;
+            text-decoration: underline;
+        }
+        @media (max-width: 768px) {
+            .search-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .search-controls {
+                width: 100%;
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .filter-group {
+                width: 100%;
+            }
+            .filter-select, .sort-select {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="header-container"></div>
+    
+    <div class="search-container">
+        <div class="search-header">
+            <div>
+                <h1 class="search-title" id="search-title">Search Results</h1>
+                <p class="result-count" id="result-count"></p>
+            </div>
+            <div class="search-controls">
+                <div class="filter-group">
+                    <label for="category-filter">Category:</label>
+                    <select id="category-filter" class="filter-select">
+                        <option value="all">All Categories</option>
+                        <option value="furniture">Furniture</option>
+                        <option value="clothing">Clothing</option>
+                        <option value="healthcare">Healthcare</option>
+                        <option value="kids">Kids</option>
+                        <option value="petcare">Pet Care</option>
+                        <option value="accessories">Accessories</option>
+                        <option value="makeup">Makeup</option>
+                        <option value="smartphones">Smartphones</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label for="sort-select">Sort by:</label>
+                    <select id="sort-select" class="sort-select">
+                        <option value="relevance">Relevance</option>
+                        <option value="price-low">Price: Low to High</option>
+                        <option value="price-high">Price: High to Low</option>
+                        <option value="name-asc">Name: A to Z</option>
+                        <option value="name-desc">Name: Z to A</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="shopsec" id="search-results"></div>
+    </div>
+
+    <div id="footer-container"></div>
+
+    <script src="../assets/js/toast.js"></script>
+    <script src="../assets/js/cart-manager.js"></script>
+    <script src="../assets/js/footer.js" defer></script>
+    <script src="../assets/js/header.js" defer></script>
+    <script>
+        let allProducts = [];
+        let filteredProducts = [];
+        let searchTerm = '';
+
+        document.addEventListener("DOMContentLoaded", function() {
+            searchTerm = localStorage.getItem('searchTerm') || '';
+            if (searchTerm) {
+                document.getElementById('search-title').textContent = `Results for "${searchTerm}"`;
+                loadAndSearchProducts();
+            } else {
+                showNoResults('Please enter a search term');
+            }
+
+            // Event listeners for filters and sorting
+            document.getElementById('category-filter').addEventListener('change', applyFiltersAndSort);
+            document.getElementById('sort-select').addEventListener('change', applyFiltersAndSort);
+        });
+
+        function loadAndSearchProducts() {
+            fetch("../products.xml")
+                .then(response => response.text())
+                .then(xmlText => {
+                    let parser = new DOMParser();
+                    let xmlDoc = parser.parseFromString(xmlText, "text/xml");
+                    let products = xmlDoc.getElementsByTagName("product");
+
+                    allProducts = [];
+                    Array.from(products).forEach(product => {
+                        let name = product.getElementsByTagName("name")[0]?.textContent.trim();
+                        let category = product.getElementsByTagName("category")[0]?.textContent.trim();
+                        
+                        if (name.toLowerCase().includes(searchTerm.toLowerCase()) || 
+                            category.toLowerCase().includes(searchTerm.toLowerCase())) {
+                            allProducts.push({
+                                id: product.getElementsByTagName("id")[0]?.textContent.trim(),
+                                name: name,
+                                price: parseFloat(product.getElementsByTagName("price")[0]?.textContent.trim()),
+                                image: product.getElementsByTagName("image")[0]?.textContent.trim(),
+                                category: category.toLowerCase()
+                            });
+                        }
+                    });
+
+                    applyFiltersAndSort();
+                })
+                .catch(error => {
+                    console.error("Error loading products:", error);
+                    showToast('Error loading products', 'error');
+                });
+        }
+
+        function applyFiltersAndSort() {
+            const categoryFilter = document.getElementById('category-filter').value;
+            const sortOption = document.getElementById('sort-select').value;
+
+            // Filter by category
+            filteredProducts = allProducts.filter(product => {
+                if (categoryFilter === 'all') return true;
+                return product.category === categoryFilter;
+            });
+
+            // Sort products
+            switch(sortOption) {
+                case 'price-low':
+                    filteredProducts.sort((a, b) => a.price - b.price);
+                    break;
+                case 'price-high':
+                    filteredProducts.sort((a, b) => b.price - a.price);
+                    break;
+                case 'name-asc':
+                    filteredProducts.sort((a, b) => a.name.localeCompare(b.name));
+                    break;
+                case 'name-desc':
+                    filteredProducts.sort((a, b) => b.name.localeCompare(a.name));
+                    break;
+                default: // relevance
+                    break;
+            }
+
+            displayResults();
+        }
+
+        function displayResults() {
+            const searchResults = document.getElementById("search-results");
+            const resultCount = document.getElementById("result-count");
+
+            if (filteredProducts.length === 0) {
+                resultCount.textContent = '';
+                showNoResults(`No products found matching "${searchTerm}"${document.getElementById('category-filter').value !== 'all' ? ' in this category' : ''}`);
+                return;
+            }
+
+            resultCount.textContent = `${filteredProducts.length} result${filteredProducts.length !== 1 ? 's' : ''}`;
+            searchResults.innerHTML = "";
+
+            filteredProducts.forEach(product => {
+                let productDiv = document.createElement("div");
+                productDiv.classList.add("box");
+                productDiv.innerHTML = `
+                    <div class="boxcont">
+                        <h2>${product.name}</h2>
+                        <div class="boximg" style="background-image: url('../${product.image}');"></div>
+                        <button class="buttonx add-to-cart" 
+                            data-id="${product.id}" 
+                            data-name="${product.name}" 
+                            data-price="${product.price}" 
+                            data-image="${product.image}">
+                            <i class="fas fa-shopping-cart"></i> Add to cart
+                        </button>
+                        <h4 class="price">Rs ${product.price.toFixed(2)}</h4>
+                    </div>
+                `;
+                searchResults.appendChild(productDiv);
+            });
+
+            attachAddToCartListeners();
+        }
+
+        function showNoResults(message) {
+            const searchResults = document.getElementById("search-results");
+            searchResults.innerHTML = `
+                <div class="no-results">
+                    <i class="fas fa-search"></i>
+                    <h2>No Results Found</h2>
+                    <p>${message}</p>
+                    <div class="suggestions">
+                        <h3>Try searching for:</h3>
+                        <ul>
+                            <li><a href="#" onclick="searchFor('furniture')">Furniture</a></li>
+                            <li><a href="#" onclick="searchFor('clothing')">Clothing</a></li>
+                            <li><a href="#" onclick="searchFor('smartphones')">Smartphones</a></li>
+                            <li><a href="#" onclick="searchFor('makeup')">Makeup</a></li>
+                            <li><a href="#" onclick="searchFor('kids')">Kids Products</a></li>
+                        </ul>
+                    </div>
+                </div>
+            `;
+        }
+
+        function searchFor(term) {
+            localStorage.setItem('searchTerm', term);
+            window.location.reload();
+        }
+
+        function attachAddToCartListeners() {
+            document.querySelectorAll(".add-to-cart").forEach(button => {
+                button.addEventListener("click", function () {
+                    let productId = this.getAttribute("data-id");
+                    let productName = this.getAttribute("data-name");
+                    let productPrice = this.getAttribute("data-price");
+                    let productImage = this.getAttribute("data-image");
+                    addToCart(productId, productName, productPrice, productImage);
+                    showToast(`${productName} added to cart!`, 'success');
+                });
+            });
+        }
+
+        function addToCart(id, name, price, image) {
+            let cart = JSON.parse(localStorage.getItem("cart")) || [];
+            let existingItem = cart.find(item => item.id === id);
+            
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({ id, name, price, image, quantity: 1 });
+            }
+            
+            localStorage.setItem("cart", JSON.stringify(cart));
+            updateCartCounter();
+        }
+
+        function updateCartCounter() {
+            let cart = JSON.parse(localStorage.getItem("cart")) || [];
+            let totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+            const cartCountElement = document.querySelector('.nav-right .nav-cart .cart-count');
+            if (cartCountElement) {
+                cartCountElement.textContent = totalItems;
+            }
+        }
+    </script>
+</body>
+</html>
+

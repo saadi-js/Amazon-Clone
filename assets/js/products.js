@@ -2,7 +2,7 @@
 document.addEventListener("DOMContentLoaded", loadProducts);
 // Function to load products from XML file
 function loadProducts() {
-    fetch("products.xml")
+    fetch("../products.xml")
         .then(response => response.text())
         .then(xmlText => {
             let parser = new DOMParser();
@@ -37,16 +37,16 @@ function loadProducts() {
 
                 productDiv.innerHTML = `
                     <div class="boxcont">
-                        <h2>${name}</h2>
-                        <div class="boximg" style="background-image: url('${image}');"></div>
+                        <h2 class="product-name" title="${name}" data-id="${id}">${name}</h2>
+                        <div class="boximg product-image" style="background-image: url('${image}');" data-id="${id}"></div>
+                        <h4 class="price">Rs ${price}</h4>
                         <button class="buttonx add-to-cart" 
                             data-id="${id}" 
                             data-name="${name}" 
                             data-price="${price}" 
                             data-image="${image}">
-                            Add to cart
+                            <i class="fas fa-shopping-cart"></i> Add to cart
                         </button>
-                        <h4 class="price">Rs ${price}</h4>
                     </div>
                 `;
 
@@ -54,6 +54,7 @@ function loadProducts() {
             });
 
             attachAddToCartListeners();
+            attachProductClickListeners();
         })
         .catch(error => console.error("Error loading products:", error));
 }
@@ -62,25 +63,43 @@ function loadProducts() {
 
 // Function to add product to cart in localStorage
 function addToCart(productId, productName, productPrice, productImage) {
-    let cart = JSON.parse(localStorage.getItem("cart")) || [];
-
-    // Check if the product already exists in the cart
-    let existingProduct = cart.find(product => product.id === productId);
-
-    if (existingProduct) {
-        existingProduct.quantity += 1;
+    // Use CartManager if available, otherwise use fallback
+    if (typeof window.CartManager !== 'undefined') {
+        const action = window.CartManager.addItem(productId, productName, productPrice, productImage);
+        const message = action === 'updated' 
+            ? `${productName} quantity updated!` 
+            : `${productName} added to cart!`;
+        
+        if (typeof showToast !== 'undefined') {
+            showToast(message, 'success');
+        }
     } else {
-        cart.push({
-            id: productId,
-            name: productName,
-            price: parseFloat(productPrice),
-            image: productImage,
-            quantity: 1
-        });
-    }
+        // Fallback method
+        let cart = JSON.parse(localStorage.getItem("cart")) || [];
+        let existingProduct = cart.find(product => product.id === productId);
 
-    localStorage.setItem("cart", JSON.stringify(cart));
-    alert("Product added to cart!");
+        if (existingProduct) {
+            existingProduct.quantity += 1;
+        } else {
+            cart.push({
+                id: productId,
+                name: productName,
+                price: parseFloat(productPrice),
+                image: productImage,
+                quantity: 1
+            });
+        }
+
+        localStorage.setItem("cart", JSON.stringify(cart));
+        
+        if (typeof showToast !== 'undefined') {
+            showToast(`${productName} added to cart!`, 'success');
+        }
+        
+        if (typeof window.updateCartCount === 'function') {
+            window.updateCartCount();
+        }
+    }
 }
 
 // Function to attach event listeners after loading products
@@ -92,7 +111,25 @@ function attachAddToCartListeners() {
             let productPrice = this.getAttribute("data-price");
             let productImage = this.getAttribute("data-image");
 
+            // Add pulse animation
+            this.classList.add('clicked');
+            setTimeout(() => {
+                this.classList.remove('clicked');
+            }, 300);
+
             addToCart(productId, productName, productPrice, productImage);
         });
+    });
+}
+
+// Function to attach click listeners to product titles and images
+function attachProductClickListeners() {
+    document.querySelectorAll(".product-name, .product-image").forEach(element => {
+        element.addEventListener("click", function(e) {
+            e.stopPropagation();
+            const productId = this.getAttribute("data-id");
+            window.location.href = `product-detail.html?id=${productId}`;
+        });
+        element.style.cursor = "pointer";
     });
 }

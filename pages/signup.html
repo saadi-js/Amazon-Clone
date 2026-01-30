@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../assets/css/signup.css">
+    <link rel="stylesheet" href="../assets/css/toast.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <title>Amazon - Create Account</title>
+    <style>
+        /* Override all conflicting styles */
+        .card input[type="password"],
+        .card input[type="text"], 
+        .card input[type="email"],
+        .card input {
+            width: 336px !important;
+            height: 25px !important;
+            padding: 3px 35px 3px 7px !important;
+            margin-top: 3px !important;
+            background-color: #fff !important;
+            border: 1px solid #a6a6a6 !important;
+            border-radius: 3px !important;
+            box-sizing: border-box !important;
+        }
+        
+        .card button {
+            width: 336px !important;
+            height: 31px !important;
+            margin-top: 15px !important;
+            background-color: #f0c14b !important;
+            border: 1px solid #a6a6a6 !important;
+            border-top-color: #949494 !important;
+            background-image: linear-gradient(#f7da90,#e2b33b) !important;
+            border-radius: 3px !important;
+            box-sizing: border-box !important;
+            cursor: pointer !important;
+        }
+        
+        .password-container {
+            position: relative;
+        }
+        .password-toggle {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            color: #666;
+            font-size: 14px;
+            line-height: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .password-toggle:hover {
+            color: #333;
+        }
+        .error-message {
+            color: #c40000;
+            font-size: 12px;
+            margin-top: 5px;
+            display: none;
+        }
+        .error-message.show {
+            display: block;
+        }
+        .password-strength {
+            margin-top: 5px;
+            height: 4px;
+            background: #ddd;
+            border-radius: 2px;
+            overflow: hidden;
+            display: none;
+        }
+        .password-strength.show {
+            display: block;
+        }
+        .strength-bar {
+            height: 100%;
+            transition: all 0.3s;
+            width: 0;
+        }
+        .strength-bar.weak {
+            width: 33%;
+            background: #ff4444;
+        }
+        .strength-bar.medium {
+            width: 66%;
+            background: #ffa500;
+        }
+        .strength-bar.strong {
+            width: 100%;
+            background: #00cc00;
+        }
+        .strength-text {
+            font-size: 11px;
+            margin-top: 3px;
+            display: none;
+        }
+        .strength-text.show {
+            display: block;
+        }
+        .strength-text.weak {
+            color: #ff4444;
+        }
+        .strength-text.medium {
+            color: #ffa500;
+        }
+        .strength-text.strong {
+            color: #00cc00;
+        }
+    </style>
+</head>
+<body>
+    <div id="toast-container"></div>
+    <section>
+<div class="logo">
+    <img src="../assets/images/download.png" alt="Amazon Logo">
+    <span>.Pk</span>
+</div>
+<div class="card">
+    <h1>Create Account</h1>
+    <div class="form">
+        <form id="signup-form">
+        <div class="form-group">
+            <label for="name">Your name</label>
+            <input type="text" id="name" name="name" required>
+            <div class="error-message" id="name-error"></div>
+        </div>
+
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" required>
+            <div class="error-message" id="email-error"></div>
+        </div>
+
+        <div class="form-group">
+            <label for="pass">Password</label>
+            <div class="password-container">
+                <input type="password" id="pass" name="password" minlength="8" required>
+                <i class="fas fa-eye password-toggle" id="togglePassword"></i>
+            </div>
+            <div class="password-strength" id="strength-bar-container">
+                <div class="strength-bar" id="strength-bar"></div>
+            </div>
+            <div class="strength-text" id="strength-text"></div>
+            <div class="error-message" id="password-error"></div>
+        </div>
+
+        <div class="form-group">
+            <label for="retyp">Re-enter password</label>
+            <div class="password-container">
+                <input type="password" id="retyp" name="repassword" required>
+                <i class="fas fa-eye password-toggle" id="toggleRetypePassword"></i>
+            </div>
+            <div class="error-message" id="repassword-error"></div>
+        </div>
+
+        <button type="submit" id="submi">Create your Amazon account</button>
+    </form>
+    </div>
+    <p>By creating an account, you agree to Amazon's <a href="#">Conditions of Use</a> and <a href="#">Privacy Notice.</a></p>
+    <a href="#" class="icon"><i class="fas fa-caret-down"></i> Need Help?</a>
+</div>
+
+<div class="break">
+    <p>Already have an account?</p>
+</div>
+<div class="btn">
+    <button><a href="login.html">Sign in</a></button>
+</div>
+
+<footer>
+    <div class="links">
+        <a href="#">Condition of use</a>
+        <a href="#">Privacy notice</a>
+        <a href="#">Help</a> 
+    </div>
+<p>© 1996-2025, Amazon.com, Inc. or its affiliates</p>
+</footer>
+    </section>
+
+    <script src="../assets/js/toast.js"></script>
+    <script>
+        // Password toggle functionality
+        const togglePassword = document.getElementById('togglePassword');
+        const passwordField = document.getElementById('pass');
+        const toggleRetypePassword = document.getElementById('toggleRetypePassword');
+        const retypePasswordField = document.getElementById('retyp');
+        
+        togglePassword.addEventListener('click', function() {
+            const type = passwordField.getAttribute('type') === 'password' ? 'text' : 'password';
+            passwordField.setAttribute('type', type);
+            this.classList.toggle('fa-eye');
+            this.classList.toggle('fa-eye-slash');
+        });
+
+        toggleRetypePassword.addEventListener('click', function() {
+            const type = retypePasswordField.getAttribute('type') === 'password' ? 'text' : 'password';
+            retypePasswordField.setAttribute('type', type);
+            this.classList.toggle('fa-eye');
+            this.classList.toggle('fa-eye-slash');
+        });
+
+        // Password strength indicator
+        const strengthBar = document.getElementById('strength-bar');
+        const strengthBarContainer = document.getElementById('strength-bar-container');
+        const strengthText = document.getElementById('strength-text');
+
+        function checkPasswordStrength(password) {
+            let strength = 0;
+            if (password.length >= 8) strength++;
+            if (password.length >= 12) strength++;
+            if (/[a-z]/.test(password) && /[A-Z]/.test(password)) strength++;
+            if (/\d/.test(password)) strength++;
+            if (/[^a-zA-Z0-9]/.test(password)) strength++;
+
+            strengthBar.className = 'strength-bar';
+            strengthText.className = 'strength-text show';
+            strengthBarContainer.classList.add('show');
+
+            if (strength <= 2) {
+                strengthBar.classList.add('weak');
+                strengthText.classList.add('weak');
+                strengthText.textContent = 'Weak password';
+            } else if (strength <= 4) {
+                strengthBar.classList.add('medium');
+                strengthText.classList.add('medium');
+                strengthText.textContent = 'Medium strength';
+            } else {
+                strengthBar.classList.add('strong');
+                strengthText.classList.add('strong');
+                strengthText.textContent = 'Strong password';
+            }
+        }
+
+        passwordField.addEventListener('input', function() {
+            if (this.value) {
+                checkPasswordStrength(this.value);
+            } else {
+                strengthBarContainer.classList.remove('show');
+                strengthText.classList.remove('show');
+            }
+        });
+
+        // Real-time validation
+        const nameField = document.getElementById('name');
+        const emailField = document.getElementById('email');
+        const nameError = document.getElementById('name-error');
+        const emailError = document.getElementById('email-error');
+        const passwordError = document.getElementById('password-error');
+        const repasswordError = document.getElementById('repassword-error');
+
+        nameField.addEventListener('blur', function() {
+            if (!this.value.trim()) {
+                nameError.textContent = 'Name is required';
+                nameError.classList.add('show');
+            } else if (this.value.trim().length < 2) {
+                nameError.textContent = 'Name must be at least 2 characters';
+                nameError.classList.add('show');
+            } else {
+                nameError.classList.remove('show');
+            }
+        });
+
+        emailField.addEventListener('blur', function() {
+            if (!this.value.trim()) {
+                emailError.textContent = 'Email is required';
+                emailError.classList.add('show');
+            } else if (!this.value.includes('@')) {
+                emailError.textContent = 'Please enter a valid email address';
+                emailError.classList.add('show');
+            } else {
+                emailError.classList.remove('show');
+            }
+        });
+
+        passwordField.addEventListener('blur', function() {
+            if (!this.value) {
+                passwordError.textContent = 'Password is required';
+                passwordError.classList.add('show');
+            } else if (this.value.length < 8) {
+                passwordError.textContent = 'Password must be at least 8 characters';
+                passwordError.classList.add('show');
+            } else {
+                passwordError.classList.remove('show');
+            }
+        });
+
+        retypePasswordField.addEventListener('blur', validatePasswordMatch);
+        retypePasswordField.addEventListener('input', validatePasswordMatch);
+
+        function validatePasswordMatch() {
+            const password = passwordField.value;
+            const repassword = retypePasswordField.value;
+
+            if (repassword && password !== repassword) {
+                repasswordError.textContent = 'Passwords do not match';
+                repasswordError.classList.add('show');
+            } else {
+                repasswordError.classList.remove('show');
+            }
+        }
+
+        // Form submission
+        document.getElementById('signup-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const name = nameField.value.trim();
+            const email = emailField.value.trim();
+            const password = passwordField.value;
+            const repassword = retypePasswordField.value;
+            
+            // Reset errors
+            nameError.classList.remove('show');
+            emailError.classList.remove('show');
+            passwordError.classList.remove('show');
+            repasswordError.classList.remove('show');
+            
+            let hasError = false;
+            
+            // Validation
+            if (!name) {
+                nameError.textContent = 'Name is required';
+                nameError.classList.add('show');
+                hasError = true;
+            } else if (name.length < 2) {
+                nameError.textContent = 'Name must be at least 2 characters';
+                nameError.classList.add('show');
+                hasError = true;
+            }
+            
+            if (!email) {
+                emailError.textContent = 'Email is required';
+                emailError.classList.add('show');
+                hasError = true;
+            } else if (!email.includes('@')) {
+                emailError.textContent = 'Please enter a valid email address';
+                emailError.classList.add('show');
+                hasError = true;
+            }
+            
+            if (!password) {
+                passwordError.textContent = 'Password is required';
+                passwordError.classList.add('show');
+                hasError = true;
+            } else if (password.length < 8) {
+                passwordError.textContent = 'Password must be at least 8 characters';
+                passwordError.classList.add('show');
+                hasError = true;
+            }
+            
+            if (!repassword) {
+                repasswordError.textContent = 'Please re-enter your password';
+                repasswordError.classList.add('show');
+                hasError = true;
+            } else if (password !== repassword) {
+                repasswordError.textContent = 'Passwords do not match';
+                repasswordError.classList.add('show');
+                hasError = true;
+            }
+            
+            if (hasError) {
+                showToast('Please fix the errors in the form', 'error');
+                return;
+            }
+            
+            // Show success and redirect
+            showToast('Account created successfully! Redirecting...', 'success');
+            setTimeout(() => {
+                window.location.href = "index.html";
+            }, 1500);
+        });
+    </script>
+</body>
+</html>

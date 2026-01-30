@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page Not Found - Amazon</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .error-container {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px;
+        }
+
+        .error-content {
+            text-align: center;
+            background: white;
+            padding: 60px 40px;
+            border-radius: 16px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            max-width: 600px;
+            width: 100%;
+        }
+
+        .error-icon {
+            font-size: 120px;
+            color: #ff9900;
+            margin-bottom: 20px;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0);
+            }
+            40% {
+                transform: translateY(-20px);
+            }
+            60% {
+                transform: translateY(-10px);
+            }
+        }
+
+        .error-code {
+            font-size: 72px;
+            font-weight: bold;
+            color: #111;
+            margin: 0 0 10px 0;
+        }
+
+        .error-title {
+            font-size: 28px;
+            color: #111;
+            margin: 0 0 15px 0;
+            font-weight: 600;
+        }
+
+        .error-message {
+            font-size: 16px;
+            color: #565959;
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+
+        .error-actions {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 12px 30px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 16px;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(to bottom, #f7dfa5, #f0c14b);
+            border: 1px solid #a88734;
+            color: #111;
+        }
+
+        .btn-primary:hover {
+            background: linear-gradient(to bottom, #f5d78e, #edb93c);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .btn-secondary {
+            background: white;
+            border: 1px solid #d5d9d9;
+            color: #111;
+        }
+
+        .btn-secondary:hover {
+            background: #f7f7f7;
+            border-color: #a88734;
+        }
+
+        .suggestions {
+            margin-top: 40px;
+            padding-top: 30px;
+            border-top: 1px solid #e7e7e7;
+        }
+
+        .suggestions h3 {
+            font-size: 18px;
+            color: #111;
+            margin-bottom: 15px;
+        }
+
+        .suggestions-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        .suggestion-link {
+            padding: 8px 16px;
+            background: #f0f2f2;
+            border-radius: 20px;
+            text-decoration: none;
+            color: #007185;
+            font-size: 14px;
+            transition: all 0.2s;
+        }
+
+        .suggestion-link:hover {
+            background: #e3e6e6;
+            color: #c45500;
+        }
+
+        @media (max-width: 768px) {
+            .error-content {
+                padding: 40px 20px;
+            }
+
+            .error-code {
+                font-size: 56px;
+            }
+
+            .error-title {
+                font-size: 22px;
+            }
+
+            .error-icon {
+                font-size: 80px;
+            }
+
+            .error-actions {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="error-container">
+        <div class="error-content">
+            <div class="error-icon">
+                <i class="fas fa-exclamation-triangle"></i>
+            </div>
+            <h1 class="error-code">404</h1>
+            <h2 class="error-title">Page Not Found</h2>
+            <p class="error-message">
+                We're sorry, the page you requested could not be found. 
+                Please check the URL or try one of the options below.
+            </p>
+            
+            <div class="error-actions">
+                <a href="index.html" class="btn btn-primary">
+                    <i class="fas fa-home"></i>
+                    Go to Homepage
+                </a>
+                <a href="javascript:history.back()" class="btn btn-secondary">
+                    <i class="fas fa-arrow-left"></i>
+                    Go Back
+                </a>
+            </div>
+
+            <div class="suggestions">
+                <h3>Popular Categories</h3>
+                <div class="suggestions-list">
+                    <a href="clothing.html" class="suggestion-link">Clothing</a>
+                    <a href="furniture.html" class="suggestion-link">Furniture</a>
+                    <a href="smartphone.html" class="suggestion-link">Smartphones</a>
+                    <a href="healthcare.html" class="suggestion-link">Healthcare</a>
+                    <a href="makeup.html" class="suggestion-link">Makeup</a>
+                    <a href="pages/deals.html" class="suggestion-link">Today's Deals</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

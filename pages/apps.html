@@ -1,0 +1,64 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amazon - Amazon Appstore</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" crossorigin="anonymous" />
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <style>
+        .content-container { max-width: 1200px; margin: 20px auto; padding: 20px; }
+        .hero-banner { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 60px 20px; text-align: center; border-radius: 8px; margin-bottom: 30px; }
+        .hero-banner h1 { font-size: 42px; margin-bottom: 15px; }
+        .hero-banner p { font-size: 18px; opacity: 0.95; max-width: 600px; margin: 0 auto; }
+        .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 25px; margin: 30px 0; }
+        .feature-box { background: white; padding: 30px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); text-align: center; transition: all 0.3s; }
+        .feature-box:hover { transform: translateY(-5px); box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
+        .feature-box i { font-size: 48px; color: #ff9900; margin-bottom: 15px; }
+        .feature-box h3 { color: #111; font-size: 18px; margin-bottom: 10px; }
+        .feature-box p { color: #565959; font-size: 14px; line-height: 1.6; }
+        .cta-button { display: inline-block; padding: 15px 40px; background: linear-gradient(to bottom, #f7dfa5, #f0c14b); border: 1px solid #a88734; border-radius: 8px; color: #111; text-decoration: none; font-weight: 600; font-size: 16px; transition: all 0.2s; }
+        .cta-button:hover { background: linear-gradient(to bottom, #f5d78e, #edb93c); transform: translateY(-2px); }
+        @media (max-width: 768px) { .hero-banner h1 { font-size: 28px; } .features-grid { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+    <div id="header-container"></div>
+    <div class="content-container">
+        <div class="hero-banner">
+            <h1><i class="fa-solid fa-mobile"></i> Amazon Appstore</h1>
+            <p>Download games and apps for Android. Get exclusive deals and free app of the day.</p>
+        </div>
+        <div class="features-grid">            <div class="feature-box">
+                <i class="fa-solid fa-check-circle"></i>
+                <h3>Exclusive apps</h3>
+                <p>Enjoy this amazing feature with your subscription or purchase.</p>
+            </div>            <div class="feature-box">
+                <i class="fa-solid fa-check-circle"></i>
+                <h3>Daily deals</h3>
+                <p>Enjoy this amazing feature with your subscription or purchase.</p>
+            </div>            <div class="feature-box">
+                <i class="fa-solid fa-check-circle"></i>
+                <h3>Safe downloads</h3>
+                <p>Enjoy this amazing feature with your subscription or purchase.</p>
+            </div>            <div class="feature-box">
+                <i class="fa-solid fa-check-circle"></i>
+                <h3>Family-friendly</h3>
+                <p>Enjoy this amazing feature with your subscription or purchase.</p>
+            </div>        </div>
+        <div style="text-align: center; margin-top: 40px;">
+            <a href="../index.html" class="cta-button">Explore Now</a>
+        </div>
+    </div>
+    <div id="footer-container"></div>
+    <script src="../assets/js/footer.js" defer></script>
+    <script src="../assets/js/header.js" defer></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            headerloader();
+            loadfooter();
+        });
+    </script>
+</body>
+</html>
+

@@ -1,0 +1,153 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amazon - Your Orders</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <style>
+        .orders-container { max-width: 1200px; margin: 20px auto; padding: 20px; }
+        .orders-header { background: white; padding: 20px; border-radius: 8px; margin-bottom: 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        .orders-header h1 { color: #111; margin-bottom: 10px; font-size: 28px; }
+        .order-filters { display: flex; gap: 10px; margin-top: 15px; flex-wrap: wrap; }
+        .filter-btn { padding: 8px 16px; border: 1px solid #ddd; background: white; border-radius: 20px; cursor: pointer; transition: all 0.2s; }
+        .filter-btn:hover { background: #f7f7f7; }
+        .filter-btn.active { background: #232f3e; color: white; }
+        .order-card { background: white; border-radius: 8px; padding: 20px; margin-bottom: 15px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        .order-header { display: flex; justify-content: space-between; padding-bottom: 15px; border-bottom: 1px solid #ddd; margin-bottom: 15px; flex-wrap: wrap; gap: 10px; }
+        .order-info { flex: 1; min-width: 200px; }
+        .order-info-label { font-size: 12px; color: #565959; }
+        .order-info-value { font-size: 14px; color: #111; font-weight: 600; margin-top: 3px; }
+        .order-items { display: flex; gap: 15px; flex-wrap: wrap; }
+        .order-item { display: flex; gap: 15px; flex: 1; min-width: 250px; }
+        .order-item img { width: 100px; height: 100px; object-fit: cover; border-radius: 4px; border: 1px solid #ddd; }
+        .order-item-details h3 { font-size: 15px; color: #0066c0; margin-bottom: 5px; }
+        .order-item-details p { font-size: 13px; color: #565959; margin: 3px 0; }
+        .order-actions { margin-top: 15px; display: flex; gap: 10px; flex-wrap: wrap; }
+        .order-btn { padding: 8px 16px; border: 1px solid #d5d9d9; background: white; border-radius: 8px; cursor: pointer; font-size: 13px; transition: all 0.2s; }
+        .order-btn:hover { background: #f7f7f7; border-color: #111; }
+        .order-btn.primary { background: linear-gradient(to bottom, #f7dfa5, #f0c14b); border-color: #a88734; }
+        .order-btn.primary:hover { background: linear-gradient(to bottom, #f5d78e, #edb93c); }
+        .status-badge { display: inline-block; padding: 4px 12px; border-radius: 12px; font-size: 12px; font-weight: 600; }
+        .status-delivered { background: #d5f4e6; color: #067d62; }
+        .status-transit { background: #fff4e6; color: #b12704; }
+        .status-processing { background: #e6f2ff; color: #0066c0; }
+        .empty-orders { text-align: center; padding: 60px 20px; background: white; border-radius: 8px; }
+        .empty-orders i { font-size: 80px; color: #ddd; margin-bottom: 20px; }
+        .empty-orders h2 { color: #111; margin-bottom: 10px; }
+        .empty-orders p { color: #565959; margin-bottom: 20px; }
+        @media (max-width: 768px) {
+            .order-header { flex-direction: column; }
+            .order-item { min-width: 100%; }
+            .order-actions { flex-direction: column; }
+            .order-btn { width: 100%; }
+        }
+    </style>
+</head>
+<body>
+    <div id="header-container"></div>
+    <div class="orders-container">
+        <div class="orders-header">
+            <h1>Your Orders</h1>
+            <div class="order-filters">
+                <button class="filter-btn active" onclick="filterOrders('all')">All Orders</button>
+                <button class="filter-btn" onclick="filterOrders('processing')">Processing</button>
+                <button class="filter-btn" onclick="filterOrders('transit')">In Transit</button>
+                <button class="filter-btn" onclick="filterOrders('delivered')">Delivered</button>
+            </div>
+        </div>
+        <div id="orders-list"></div>
+    </div>
+    <div id="footer-container"></div>
+    <script src="../assets/js/footer.js" defer></script>
+    <script src="../assets/js/header.js" defer></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            headerloader();
+            loadfooter();
+            loadOrders();
+        });
+
+        function loadOrders() {
+            const orders = JSON.parse(localStorage.getItem('orders')) || [];
+            const ordersList = document.getElementById('orders-list');
+            
+            if (orders.length === 0) {
+                ordersList.innerHTML = `
+                    <div class="empty-orders">
+                        <i class="fa-solid fa-box-open"></i>
+                        <h2>No orders yet</h2>
+                        <p>Looks like you haven't placed any orders yet.</p>
+                        <a href="../index.html" style="display: inline-block; padding: 10px 20px; background: linear-gradient(to bottom, #f7dfa5, #f0c14b); border: 1px solid #a88734; border-radius: 8px; color: #111; text-decoration: none; font-weight: 600;">Start Shopping</a>
+                    </div>
+                `;
+                return;
+            }
+
+            ordersList.innerHTML = orders.reverse().map((order, index) => {
+                const statuses = ['delivered', 'transit', 'processing'];
+                const status = statuses[Math.floor(Math.random() * statuses.length)];
+                const statusText = status === 'delivered' ? 'Delivered' : status === 'transit' ? 'In Transit' : 'Processing';
+                const orderDate = new Date(order.orderDate).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+                
+                return `
+                    <div class="order-card" data-status="${status}">
+                        <div class="order-header">
+                            <div class="order-info">
+                                <div class="order-info-label">Order Number</div>
+                                <div class="order-info-value">${order.orderNumber}</div>
+                            </div>
+                            <div class="order-info">
+                                <div class="order-info-label">Order Date</div>
+                                <div class="order-info-value">${orderDate}</div>
+                            </div>
+                            <div class="order-info">
+                                <div class="order-info-label">Total</div>
+                                <div class="order-info-value">Rs ${order.total.toFixed(2)}</div>
+                            </div>
+                            <div class="order-info">
+                                <div class="order-info-label">Status</div>
+                                <span class="status-badge status-${status}">${statusText}</span>
+                            </div>
+                        </div>
+                        <div class="order-items">
+                            ${order.items.slice(0, 2).map(item => `
+                                <div class="order-item">
+                                    <img src="${item.image}" alt="${item.name}">
+                                    <div class="order-item-details">
+                                        <h3>${item.name}</h3>
+                                        <p>Quantity: ${item.quantity}</p>
+                                        <p>Price: Rs ${item.price.toFixed(2)}</p>
+                                    </div>
+                                </div>
+                            `).join('')}
+                            ${order.items.length > 2 ? `<p style="color: #565959; align-self: center;">+${order.items.length - 2} more items</p>` : ''}
+                        </div>
+                        <div class="order-actions">
+                            <button class="order-btn primary" onclick="if(typeof Toast !== 'undefined') Toast.info('Tracking package ${order.orderNumber}...', 'Track Package'); else alert('Track Order: ${order.orderNumber}');">Track Package</button>
+                            <button class="order-btn" onclick="if(typeof Toast !== 'undefined') Toast.info('Opening invoice...', 'View Invoice'); else alert('View Invoice');">View Invoice</button>
+                            <button class="order-btn" onclick="if(typeof Toast !== 'undefined') Toast.success('Review form opened!', 'Write Review'); else alert('Write Review');">Write Review</button>
+                            ${status === 'delivered' ? '<button class="order-btn" onclick="if(typeof Toast !== \'undefined\') Toast.info(\'Processing return request...\', \'Return Items\'); else alert(\'Return Items\');" >Return Items</button>' : ''}
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function filterOrders(filter) {
+            document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            document.querySelectorAll('.order-card').forEach(card => {
+                if (filter === 'all' || card.dataset.status === filter) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+    </script>
+</body>
+</html>
+
